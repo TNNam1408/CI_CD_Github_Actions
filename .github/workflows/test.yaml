@@ -32,7 +32,7 @@ jobs:
         uses: dart-code-checker/dart-code-metrics-action@v3
         with:
           pull_request_comment: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN }}
 
   widget_test:
     name: Widget test

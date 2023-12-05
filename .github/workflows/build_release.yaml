@@ -2,16 +2,16 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - "develop"
+      - "main"
 
-name: Build Dev
+name: Build
 
 env:
   FLUTTER_VERSION: 3.16.0
 
 jobs:
   build_release:
-    name: Build dev version
+    name: Build release version
     runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
@@ -43,5 +43,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: app-release-dev
+          name: app-release-main
           path: build/app/outputs/flutter-apk/app-release.apk

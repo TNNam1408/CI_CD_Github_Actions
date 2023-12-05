@@ -38,10 +38,10 @@ jobs:
           java-version: "11"
 
       - name: Build release APK
-        run: |
-          flutter build apk --release
+        run: flutter build apk --release
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
           name: app-release-dev
-          path: ../build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/app-release.apk

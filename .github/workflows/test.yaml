@@ -1,0 +1,52 @@
+on:
+  push:
+  workflow_dispatch:
+
+name: Tests
+
+env:
+  FLUTTER_VERSION: 3.16.0
+
+jobs:
+  code_analyze:
+    name: Analyze code
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+      checks: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Run code analysis
+        uses: dart-code-checker/dart-code-metrics-action@v3
+        with:
+          pull_request_comment: true
+          github_token: ${{ secrets.TOKEN }}
+
+  widget_test:
+    name: Widget test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: "stable"
+          cache: true
+
+      - name: Run widget test
+        run: flutter test
